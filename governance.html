@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Governance · Apex Capital</title>
+  <meta name="description" content="Dual-control, RBAC, and break-glass governance model." />
+  <link rel="stylesheet" href="assets/site.css" />
+</head>
+<body>
+  <div class="readonly-banner">Apex Capital public site is strictly read-only and illustrative. No funding, investment, or transactional services are offered on this surface.</div>
+  <nav>
+    <a class="logo" href="index.html">APEX CAPITAL</a>
+    <div class="nav-links">
+      <a href="index.html">Overview</a>
+      <a href="platform.html">Platform</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="governance.html" class="active">Governance</a>
+      <a href="security.html">Security</a>
+      <a href="insights.html">Insights</a>
+      <a href="contact.html">Contact</a>
+      <a href="admin-login.html" style="opacity:0.55">Staff</a>
+    </div>
+  </nav>
+  <section style="padding-top:48px">
+    <h2>Governance model</h2>
+    <p class="section-sub">Institutional 4-eye principle and emergency controls.</p>
+    <div class="prose">
+      <p><strong>Dual control (maker-checker).</strong> Proposals for material changes are created by one authorized role and approved by a different authorized role. Self-approval is rejected.</p>
+      <p><strong>RBAC.</strong> Roles are enforced at the control-plane API (viewer / proposer / approver / admin). Least privilege by default.</p>
+      <p><strong>Break-glass.</strong> Emergency freeze path exists for severe incidents. Activation is authenticated, reason-coded, and written to the append-only audit chain with notifications.</p>
+      <p>Full workflow documentation lives in the control-plane docs package (dual-control-workflow, break-glass-protocol, RBAC policies).</p>
+    </div>
+  </section>
+  <section>
+    <div class="cards">
+      <div class="card"><div class="label">NO SELF-APPROVAL</div><div class="value">Enforced</div><div class="hint">Same actor cannot approve own proposal</div></div>
+      <div class="card"><div class="label">AUDIT LOG</div><div class="value">Append-only</div><div class="hint">SHA-256 chained events</div></div>
+      <div class="card"><div class="label">BREAK-GLASS</div><div class="value">Available</div><div class="hint">Audited emergency freeze</div></div>
+    </div>
+  </section>
+  <footer>
+    <div class="footer-grid">
+      <div><div class="brand">APEX CAPITAL</div><p>Governance is exercised only on the control plane.</p></div>
+      <div><h4>SUPPORT</h4><p>support@apexcapitalweb.com</p></div>
+      <div><h4>LEGAL</h4><p><a href="privacy.html" style="color:var(--gold)">Privacy</a> · <a href="terms.html" style="color:var(--gold)">Terms</a></p></div>
+    </div>
+    <div class="footer-bar">Apex Capital · apexcapitalweb.com</div>
+  </footer>
+</body>
+</html>
