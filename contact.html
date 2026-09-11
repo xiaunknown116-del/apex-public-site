@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact · Apex Capital</title>
+  <meta name="description" content="Request a confidential conversation with Apex Capital." />
+  <link rel="stylesheet" href="assets/site.css" />
+</head>
+<body>
+  <div class="readonly-banner">Apex Capital public site is strictly read-only and illustrative. No funding, investment, or transactional services are offered on this surface.</div>
+  <nav>
+    <a class="logo" href="index.html">APEX CAPITAL</a>
+    <div class="nav-links">
+      <a href="index.html">Overview</a>
+      <a href="platform.html">Platform</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="governance.html">Governance</a>
+      <a href="security.html">Security</a>
+      <a href="insights.html">Insights</a>
+      <a href="contact.html" class="active">Contact</a>
+      <a href="admin-login.html" style="opacity:0.55">Staff</a>
+    </div>
+  </nav>
+  <section style="padding-top:48px;max-width:640px">
+    <h2>Request a confidential conversation</h2>
+    <p class="section-sub">Institutional inquiries only. We respond to qualified counterparties under NDA where appropriate.</p>
+    <form id="contactForm" action="https://api.apexcapitalweb.com/api/contact" method="POST" class="prose">
+      <div class="form-group">
+        <label for="name">Full name</label>
+        <input type="text" id="name" name="name" required placeholder="Your name" />
+      </div>
+      <div class="form-group">
+        <label for="email">Work email</label>
+        <input type="email" id="email" name="email" required placeholder="you@firm.com" />
+      </div>
+      <div class="form-group">
+        <label for="organization">Organization</label>
+        <input type="text" id="organization" name="organization" placeholder="Family office / RIA / Fund" />
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" required placeholder="Brief context for the inquiry..."></textarea>
+      </div>
+      <div class="form-group">
+        <div class="cf-turnstile" data-sitekey="YOUR_SITE_KEY" data-theme="dark"></div>
+        <p style="font-size:0.75rem;color:var(--muted);margin-top:0.5rem">
+          Protected by <a href="https://www.cloudflare.com/products/turnstile/?utm_source=turnstile&utm_campaign=widget" style="color:var(--gold)" target="_blank" rel="noopener">Cloudflare Turnstile</a>.
+          Server-side validation is required at the API endpoint.
+        </p>
+      </div>
+      <button type="submit" class="cta" style="border:none;cursor:pointer">Send inquiry</button>
+    </form>
+    <p class="section-sub" style="margin-top:2rem">
+      API endpoint: <code style="color:var(--gold)">https://api.apexcapitalweb.com/api/contact</code><br />
+      Public site: <a href="https://apexcapitalweb.com" style="color:var(--gold)">apexcapitalweb.com</a> ·
+      Pages: <a href="https://apex-capital-web.pages.dev" style="color:var(--gold)">apex-capital-web.pages.dev</a>
+    </p>
+  </section>
+  <footer>
+    <div class="footer-grid">
+      <div><div class="brand">APEX CAPITAL</div><p>Institutional platform. Dual-control and break-glass on the control plane.</p></div>
+      <div><h4>SUPPORT</h4><p>support@apexcapitalweb.com</p></div>
+      <div><h4>LEGAL</h4><p><a href="privacy.html" style="color:var(--gold)">Privacy</a> · <a href="terms.html" style="color:var(--gold)">Terms</a></p></div>
+    </div>
+    <div class="footer-bar">Apex Capital · apexcapitalweb.com · Illustrative · Not financial advice</div>
+  </footer>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</body>
+</html>

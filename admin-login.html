@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Staff access · Apex Capital</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="stylesheet" href="assets/site.css" />
+</head>
+<body>
+  <div class="readonly-banner">Apex Capital public site is strictly read-only and illustrative.</div>
+  <nav>
+    <a class="logo" href="index.html">APEX CAPITAL</a>
+    <div class="nav-links">
+      <a href="index.html">Public site</a>
+    </div>
+  </nav>
+  <section style="padding-top:64px;max-width:560px">
+    <h2>Staff access</h2>
+    <p class="section-sub">
+      Authorized personnel only. This static page never collects credentials.
+      In production the path must sit behind <strong>Cloudflare Access</strong>
+      (identity + MFA). Direct access without Access is not permitted.
+    </p>
+    <div class="card" style="margin-top:20px">
+      <div class="label">CONTROL PLANE</div>
+      <p class="hint" style="margin-top:10px;line-height:1.55">
+        The administrative console lives on a separate, Access-protected origin.<br><br>
+        <strong>Required configuration</strong><br>
+        • Cloudflare Access application covering <code>/admin-login.html</code> and any <code>/admin/*</code> routes<br>
+        • Identity provider + mandatory MFA<br>
+        • Restrict to Apex Capital / ApexCapitalWeb groups (or explicit allow-list)<br>
+        • Short session lifetime<br>
+        • Optional source-IP restriction (including 45.157.99.130 if intentional)
+      </p>
+    </div>
+    <p class="section-sub" style="margin-top:24px">
+      See <a href="docs/cloudflare-access-checklist.md" style="color:var(--gold)">docs/cloudflare-access-checklist.md</a>
+      for the full checklist. Do not enter secrets into any public-site form.
+    </p>
+  </section>
+  <footer>
+    <div class="footer-bar">Apex Capital · Staff boundary · Protected by Cloudflare Access in production</div>
+  </footer>
+</body>
+</html>
