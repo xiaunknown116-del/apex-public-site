@@ -19,16 +19,19 @@
 
 1. Open [Cloudflare Dashboard](https://dash.cloudflare.com) → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**.
 2. Authorize GitHub and select **`xiaunknown116-del/apex-public-site`**.
-3. Build settings:
+3. Build settings (**best practice for static HTML**):
    - **Framework preset:** None
-   - **Build command:** *(leave empty)*
+   - **Build command:** `exit 0`
    - **Build output directory:** `/` (repository root)
+   - **Production branch:** `main`
 4. Click **Save and Deploy**.
 5. After the first deploy succeeds:
    - **Custom domains** → add `apexcapitalweb.com` and `www.apexcapitalweb.com`
    - Ensure DNS records are **proxied** (orange cloud) through Cloudflare.
 
 **Verify:** `https://apexcapitalweb.com` loads with the institutional dark theme and read-only banner.
+
+> Why `exit 0`? Cloudflare recommends it for projects with no build step so Pages can enable Functions and treat the deploy as successful. The output directory `/` means the repo root (where `index.html` lives) is served directly.
 
 ---
 
@@ -64,9 +67,6 @@ npm install
 # Create KV namespaces
 npx wrangler kv namespace create SANDBOX_KV
 npx wrangler kv namespace create RATE_LIMIT_KV
-# Also create preview namespaces if you use wrangler dev:
-# npx wrangler kv namespace create SANDBOX_KV --preview
-# npx wrangler kv namespace create RATE_LIMIT_KV --preview
 ```
 
 Edit `wrangler.toml` and replace placeholders:
