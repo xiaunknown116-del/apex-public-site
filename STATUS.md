@@ -8,6 +8,16 @@
 - Turnstile demo sitekey active until you set a real one
 - API Worker: fails open on missing KV; uses demo Turnstile secret if secret unset
 - `GET /api/health` reports binding issues as a list (self-diagnosing)
+- Custom 404, robots.txt, sitemap.xml added
+- Deploy workflow uses `exit 0` build command + root output (best practice for static)
+
+## Best Pages build settings
+| Setting | Value |
+|---------|--------|
+| Framework preset | None |
+| Build command | `exit 0` |
+| Build output directory | `/` |
+| Production branch | `main` |
 
 ## What this system cannot auto-fix
 Cloudflare **account** settings require your login:
@@ -19,7 +29,7 @@ Cloudflare **account** settings require your login:
 Without API tokens for your account, no tool can change those remotely.
 
 ## Operator checklist
-1. Pages → Connect `apex-public-site` → empty build → output `/`
+1. Pages → Connect `apex-public-site` → build command `exit 0` → output `/`
 2. Domain → `apexcapitalweb.com`
 3. Access → only admin paths (not the whole site)
 4. `wrangler kv namespace create` ×2 → paste real ids into `wrangler.toml`
