@@ -1,0 +1,4 @@
+# Cloudflare Pages redirects
+# Keep staff entry explicit; public site is static HTML.
+/admin /admin-login.html 302
+/staff /admin-login.html 302

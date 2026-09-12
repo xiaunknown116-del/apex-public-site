@@ -1,0 +1,12 @@
+# Informational only — actual deploy is Cloudflare Pages (Git integration).
+# This workflow does not publish; it documents the intended path.
+name: Pages deploy hint
+on:
+  workflow_dispatch:
+jobs:
+  hint:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Deploy via Cloudflare Pages → Connect Git → repo apex-public-site"
+          echo "Build command: (empty) | Output directory: /"
