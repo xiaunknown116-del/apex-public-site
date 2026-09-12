@@ -1,20 +1,10 @@
-name: Jekyll site CI
-
+# Disabled — this repo is static HTML for Cloudflare Pages, not Jekyll.
+# Deploy path: Cloudflare Pages → Connect Git → build command empty → output /
+name: jekyll-docker (disabled)
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
+  workflow_dispatch:
 jobs:
-  build:
-
+  skip:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the site in the jekyll/builder container
-      run: |
-        docker run \
-        -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
-        jekyll/builder:latest /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --future"
+      - run: echo "Jekyll workflow disabled. Use Cloudflare Pages."

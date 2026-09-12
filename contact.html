@@ -44,9 +44,15 @@
         <textarea id="message" name="message" rows="5" required placeholder="Brief context for the inquiry..."></textarea>
       </div>
       <div class="form-group">
-        <div class="cf-turnstile" data-sitekey="YOUR_SITE_KEY" data-theme="dark"></div>
+        <!--
+          DEMO: Cloudflare official always-pass test sitekey (visible widget).
+          PRODUCTION: replace with your real Turnstile site key from the dashboard.
+          Test keys: https://developers.cloudflare.com/turnstile/troubleshooting/testing/
+        -->
+        <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA" data-theme="dark"></div>
         <p style="font-size:0.75rem;color:var(--muted);margin-top:0.5rem">
           Protected by <a href="https://www.cloudflare.com/products/turnstile/?utm_source=turnstile&utm_campaign=widget" style="color:var(--gold)" target="_blank" rel="noopener">Cloudflare Turnstile</a>.
+          Demo sitekey active — swap for production key before go-live.
         </p>
       </div>
       <button type="submit" id="submitBtn" class="cta" style="border:none;cursor:pointer">Send inquiry</button>
@@ -105,6 +111,8 @@
           .then(function (res) {
             return res.json().then(function (data) {
               return { status: res.status, data: data };
+            }).catch(function () {
+              return { status: res.status, data: {} };
             });
           })
           .then(function (result) {
@@ -123,7 +131,7 @@
             }
           })
           .catch(function () {
-            setStatus("Network error. Please try again.", false);
+            setStatus("Network error. API may be offline — try again later.", false);
           })
           .finally(function () {
             btn.disabled = false;
