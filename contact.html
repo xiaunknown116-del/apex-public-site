@@ -25,18 +25,19 @@
   <section style="padding-top:48px;max-width:640px">
     <h2>Request a confidential conversation</h2>
     <p class="section-sub">Institutional inquiries only. We respond to qualified counterparties under NDA where appropriate.</p>
-    <form id="contactForm" action="https://api.apexcapitalweb.com/api/contact" method="POST" class="prose">
+
+    <form id="contactForm" class="prose">
       <div class="form-group">
         <label for="name">Full name</label>
-        <input type="text" id="name" name="name" required placeholder="Your name" />
+        <input type="text" id="name" name="name" required placeholder="Your name" autocomplete="name" />
       </div>
       <div class="form-group">
         <label for="email">Work email</label>
-        <input type="email" id="email" name="email" required placeholder="you@firm.com" />
+        <input type="email" id="email" name="email" required placeholder="you@firm.com" autocomplete="email" />
       </div>
       <div class="form-group">
         <label for="organization">Organization</label>
-        <input type="text" id="organization" name="organization" placeholder="Family office / RIA / Fund" />
+        <input type="text" id="organization" name="organization" placeholder="Family office / RIA / Fund" autocomplete="organization" />
       </div>
       <div class="form-group">
         <label for="message">Message</label>
@@ -46,11 +47,12 @@
         <div class="cf-turnstile" data-sitekey="YOUR_SITE_KEY" data-theme="dark"></div>
         <p style="font-size:0.75rem;color:var(--muted);margin-top:0.5rem">
           Protected by <a href="https://www.cloudflare.com/products/turnstile/?utm_source=turnstile&utm_campaign=widget" style="color:var(--gold)" target="_blank" rel="noopener">Cloudflare Turnstile</a>.
-          Server-side validation is required at the API endpoint.
         </p>
       </div>
-      <button type="submit" class="cta" style="border:none;cursor:pointer">Send inquiry</button>
+      <button type="submit" id="submitBtn" class="cta" style="border:none;cursor:pointer">Send inquiry</button>
+      <p id="formStatus" class="section-sub" style="margin-top:1rem;display:none" role="status"></p>
     </form>
+
     <p class="section-sub" style="margin-top:2rem">
       API endpoint: <code style="color:var(--gold)">https://api.apexcapitalweb.com/api/contact</code><br />
       Public site: <a href="https://apexcapitalweb.com" style="color:var(--gold)">apexcapitalweb.com</a> ·
@@ -65,6 +67,69 @@
     </div>
     <div class="footer-bar">Apex Capital · apexcapitalweb.com · Illustrative · Not financial advice</div>
   </footer>
+
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script>
+    (function () {
+      var form = document.getElementById("contactForm");
+      var statusEl = document.getElementById("formStatus");
+      var btn = document.getElementById("submitBtn");
+      var API = "https://api.apexcapitalweb.com/api/contact";
+
+      function setStatus(msg, ok) {
+        statusEl.style.display = "block";
+        statusEl.textContent = msg;
+        statusEl.style.color = ok ? "var(--emerald)" : "var(--red)";
+      }
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        btn.disabled = true;
+
+        var tokenInput = form.querySelector('[name="cf-turnstile-response"]');
+        var token = tokenInput ? tokenInput.value : "";
+
+        var payload = {
+          name: form.name.value.trim(),
+          email: form.email.value.trim(),
+          organization: form.organization.value.trim(),
+          message: form.message.value.trim(),
+          "cf-turnstile-response": token
+        };
+
+        fetch(API, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        })
+          .then(function (res) {
+            return res.json().then(function (data) {
+              return { status: res.status, data: data };
+            });
+          })
+          .then(function (result) {
+            if (result.status === 200 && result.data && result.data.ok) {
+              setStatus("Inquiry received. We will respond if appropriate.", true);
+              form.reset();
+              if (window.turnstile) {
+                try { window.turnstile.reset(); } catch (err) {}
+              }
+            } else if (result.status === 429) {
+              setStatus("Too many requests. Please try again later.", false);
+            } else if (result.status === 403) {
+              setStatus("Security check failed. Refresh and try again.", false);
+            } else {
+              setStatus((result.data && result.data.error) || "Submission failed. Please try again.", false);
+            }
+          })
+          .catch(function () {
+            setStatus("Network error. Please try again.", false);
+          })
+          .finally(function () {
+            btn.disabled = false;
+          });
+      });
+    })();
+  </script>
 </body>
 </html>
