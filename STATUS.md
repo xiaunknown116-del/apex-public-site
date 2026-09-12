@@ -2,29 +2,33 @@
 
 **Updated:** 2026-09-12
 
-## Code complete
-- [x] All public pages (index, platform, portfolio, governance, security, insights, contact, privacy, terms)
-- [x] admin-login.html (Access guidance only)
-- [x] Institutional CSS + SVG diagrams
-- [x] Contact form via fetch (no raw JSON navigation)
-- [x] Turnstile widget (Cloudflare **test** sitekey for demo)
-- [x] Security headers (`_headers`) + redirects (`_redirects`)
-- [x] DEPLOY.md full steps
-- [x] Access policy docs
+## Code complete & resilient
+- Public site is pure static HTML (works on Pages even if API is down)
+- Contact form uses fetch + in-page errors (no blank JSON page)
+- Turnstile demo sitekey active until you set a real one
+- API Worker: fails open on missing KV; uses demo Turnstile secret if secret unset
+- `GET /api/health` reports binding issues as a list (self-diagnosing)
 
-## Operator-only remaining (cannot automate without your Cloudflare login)
+## What this system cannot auto-fix
+Cloudflare **account** settings require your login:
+- Connecting the Git repo to Pages
+- Creating real KV namespaces and pasting ids
+- Setting production secrets
+- Access policies / custom domains / DNS
 
-| # | Item | Action |
-|---|------|--------|
-| 1 | **Production Turnstile site key** | Create widget → replace `1x00000000000000000000AA` in `contact.html` |
-| 2 | **Worker secrets** | `wrangler secret put TURNSTILE_SECRET_KEY` (use real secret, or test secret `1x0000000000000000000000000000000AA` for demos) |
-| 3 | **KV namespace IDs** | Create `SANDBOX_KV` + `RATE_LIMIT_KV` → paste into `apex-sandbox-api` `wrangler.toml` |
-| 4 | **Deploy Pages** | Connect this repo to Cloudflare Pages (no build, output `/`) |
-| 5 | **Deploy Worker** | `npx wrangler deploy` + domain `api.apexcapitalweb.com` |
-| 6 | **Cloudflare Access** | Protect admin path: Allow email domain + Require MFA, session 1h |
+Without API tokens for your account, no tool can change those remotely.
 
-## Demo Turnstile keys (official Cloudflare test keys)
-- Sitekey (always pass): `1x00000000000000000000AA`
-- Secret (always pass): `1x0000000000000000000000000000000AA`
+## Operator checklist
+1. Pages → Connect `apex-public-site` → empty build → output `/`
+2. Domain → `apexcapitalweb.com`
+3. Access → only admin paths (not the whole site)
+4. `wrangler kv namespace create` ×2 → paste real ids into `wrangler.toml`
+5. `wrangler secret put TURNSTILE_SECRET_KEY` + `ADMIN_TOKEN`
+6. `wrangler deploy` → route `api.apexcapitalweb.com`
+7. Replace demo Turnstile **sitekey** in `contact.html` for production
 
-**Do not use test keys in production** — they always pass and provide no bot protection.
+## Diagnose API after deploy
+```bash
+curl -s https://api.apexcapitalweb.com/api/health | jq .
+# Look at "bindings" and "issues" arrays
+```
