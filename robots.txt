@@ -1,0 +1,8 @@
+# Apex Capital public site
+User-agent: *
+Allow: /
+Disallow: /admin-login.html
+Disallow: /admin
+Disallow: /staff
+
+Sitemap: https://apexcapitalweb.com/sitemap.xml
