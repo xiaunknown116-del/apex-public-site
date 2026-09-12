@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Security · Apex Capital</title>
+  <link rel="stylesheet" href="assets/site.css" />
+</head>
+<body>
+  <div class="readonly-banner">Apex Capital public site is strictly read-only and illustrative.</div>
+  <nav>
+    <a class="logo" href="index.html">APEX CAPITAL</a>
+    <div class="nav-links">
+      <a href="index.html">Overview</a>
+      <a href="platform.html">Platform</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="governance.html">Governance</a>
+      <a href="security.html" class="active">Security</a>
+      <a href="insights.html">Insights</a>
+      <a href="contact.html">Contact</a>
+      <a href="admin-login.html" style="opacity:0.55">Staff</a>
+    </div>
+  </nav>
+  <section style="padding-top:48px">
+    <h2>Security model</h2>
+    <p class="section-sub">Zero-trust boundary between public site and control plane.</p>
+    <div class="cards">
+      <div class="card"><div class="label">ACCESS</div><div class="value">Cloudflare Access</div><div class="hint">Staff routes gated</div></div>
+      <div class="card"><div class="label">MFA</div><div class="value">Hardware keys</div><div class="hint">WebAuthn for approvers</div></div>
+      <div class="card"><div class="label">CONTACT</div><div class="value">Turnstile + rate limit</div><div class="hint">Bot and abuse protection</div></div>
+    </div>
+  </section>
+  <footer>
+    <div class="footer-bar">Apex Capital · Security</div>
+  </footer>
+</body>
+</html>
