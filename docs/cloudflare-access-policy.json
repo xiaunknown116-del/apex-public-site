@@ -1,0 +1,45 @@
+{
+  "policy_name": "apex-staff-allow",
+  "description": "Best-practice Access policy for Apex Capital staff routes. Identity + MFA required. Short session. Optional IP allow-list.",
+  "application": {
+    "type": "self_hosted",
+    "name": "Apex Capital Staff",
+    "session_duration": "1h",
+    "destinations": [
+      { "type": "public", "uri": "admin.apexcapitalweb.com" },
+      { "type": "public", "uri": "apexcapitalweb.com/admin-login.html" },
+      { "type": "public", "uri": "apex-capital-web.pages.dev/admin-login.html" }
+    ]
+  },
+  "policies": [
+    {
+      "name": "apex-staff-allow",
+      "decision": "allow",
+      "session_duration": "1h",
+      "include": [
+        { "email_domain": { "domain": "apexcapitalweb.com" } }
+      ],
+      "require": [
+        { "auth_method": { "auth_method": "mfa" } }
+      ],
+      "exclude": []
+    },
+    {
+      "name": "apex-staff-allow-ip-hardened",
+      "decision": "allow",
+      "session_duration": "1h",
+      "include": [
+        { "email_domain": { "domain": "apexcapitalweb.com" } }
+      ],
+      "require": [
+        { "auth_method": { "auth_method": "mfa" } },
+        { "ip": { "ip": "45.157.99.130/32" } }
+      ],
+      "exclude": [],
+      "notes": "Optional stricter variant: require known ops IP in addition to identity + MFA. Enable only if that IP is intentional and stable."
+    }
+  ],
+  "identity_providers": ["Google", "One-time PIN (fallback for break-glass only)"],
+  "groups_context": ["Apex Capital", "ApexCapitalWeb"],
+  "account_email_context": "xiaunknown116@gmail.com"
+}
