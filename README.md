@@ -7,9 +7,15 @@ Institutional, **read-only** public website.
 - Staff routes intended for Cloudflare Access + MFA
 - Contact form: Cloudflare Turnstile + API rate limit
 
-**Deploy (best way)**  
-Connect this repo to **Cloudflare Pages** (no build command, output `/`).  
-See [DEPLOY.md](./DEPLOY.md).
+**Best build settings (Cloudflare Pages)**
+| Setting | Value |
+|---------|--------|
+| Framework preset | None |
+| Build command | `exit 0` |
+| Build output directory | `/` (repository root) |
+| Production branch | `main` |
+
+See [DEPLOY.md](./DEPLOY.md) for full steps.
 
 **Local**
 ```bash
